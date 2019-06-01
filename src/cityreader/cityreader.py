@@ -6,6 +6,8 @@ class City():
     self.name = name
     self.lat = lat
     self.lon = lon
+  def __repr__(self):
+    return(f'City("{self.name}"), {self.lat} {self.lon}')
 
 # We have a collection of US cities with population over 750,000 stored in the
 # file "cities.csv". (CSV stands for "comma-separated values".)
@@ -21,44 +23,26 @@ class City():
 # should not be loaded into a City object.
 cities = []
 import csv
-'''
+
 def cityreader(cities=[]):
   # TODO Implement the functionality to read from the 'cities.csv' file
   # For each city record, create a new City instance and add it to the 
   # `cities` list
-  import csv
-  with open('cities.csv', newline='') as cvs_file:
-    print(dir(csv))
-    cvs_reader = cvs.reader(cvs_file, delimiter=',')
-    line_count = 0
-    for row in csv_reader:
-        if line_count == 0:
-            print(f'Column names are {", ".join(row)}')
-            line_count += 1
-        else:
-            print(f'{row}')
-            line_count += 1
-    print(f'Processed {line_count} lines.')
-  return cities
-
-cityreader(cities)
-'''
-def cityreader(cities=[]):
-  import csv
   with open('cities.csv', newline='') as csvfile:
-    cvsreader = csv.reader(csvfile, delimiter=',')
-    for row in cvsreader:
+    csvreader = csv.reader(csvfile, delimiter=',')
+    next(csvreader)
+    for row in csvreader:
       name=row[0]
       lat=row[3]
       lon=row[4]
       cities.append(City(name,lat,lon))
-      
+  return cities
 
 cityreader(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
 for c in cities:
-    print(f'{c.name} {c.lat} {c.lon}')
+    print(c)
 
 # STRETCH GOAL!
 #
